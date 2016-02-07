@@ -1,0 +1,130 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="WindowsPhone.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+     xmlns:Maps="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps" 
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False"
+    shell:SystemTray.Opacity="0">
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem IsEnabled="True" Text="log out" Click="LogoutButton_Click"/>
+                <shell:ApplicationBarMenuItem IsEnabled="True" Text="update profile" Click="UpdateProfileButton_Click"/>
+            </shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/add.png" IsEnabled="True" Text="add event" Click="AddDisasterButton_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <!--LayoutRoot contains the root grid where all other page content is placed-->
+    <Grid x:Name="LayoutRoot">
+        <phone:Pivot Name="panorama" Title="welcome">
+
+            <phone:PivotItem Header="attending">
+                <Grid>
+                    <TextBlock Name="txtNoAttendDisasters" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}" Text="You are not participating in any disaster." Visibility="Collapsed"/>
+                    <ListBox Name="lstAttendDisasters">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Background="Transparent" Tap="Disaster_Tap" Margin="0,0,0,10">
+                                    <TextBlock Text="{Binding Country}" Style="{StaticResource PhoneTextTitle2Style}"/>
+                                    <TextBlock Text="{Binding Description}" Style="{StaticResource PhoneTextTitle3Style}"/>
+                                    <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
+                                        <Image Source="/Assets/Resources/thumbsUp.png" Height="20"/>
+                                        <TextBlock Text="{Binding RatingPlus}" Foreground="Green"/>
+                                        <TextBlock Width="10"/>
+                                        <Image Source="/Assets/Resources/thumbsDown.png" Height="20"/>
+                                        <TextBlock Text="{Binding RatingMinus}" Foreground="Red"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </phone:PivotItem>
+            
+            <phone:PivotItem Header="disasters">
+                <Grid>
+                    <TextBlock Name="txtNoDisasters" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}" Text="No disasters so far." Visibility="Collapsed"/>
+                    <ListBox Name="lstDisasters">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Background="Transparent" Tap="Disaster_Tap" Margin="0,0,0,10">
+                                    <TextBlock Text="{Binding Country}" Style="{StaticResource PhoneTextTitle2Style}"/>
+                                    <TextBlock Text="{Binding Description}" Style="{StaticResource PhoneTextTitle3Style}"/>
+                                    <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
+                                        <Image Source="/Assets/Resources/thumbsUp.png" Height="20"/>
+                                        <TextBlock Text="{Binding RatingPlus}" Foreground="Green"/>
+                                        <TextBlock Width="10"/>
+                                        <Image Source="/Assets/Resources/thumbsDown.png" Height="20"/>
+                                        <TextBlock Text="{Binding RatingMinus}" Foreground="Red"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </phone:PivotItem>
+
+            <phone:PivotItem Header="map">
+                <Maps:Map
+                        CredentialsProvider="Ata6VjOFfYyG5vV9BHXJ45lDFLtbY9JLPHd45guVOSDbwdFstgQZKXHRDypQaMVA"
+                        x:Name="map"
+                        ZoomLevel="4"
+                        ZoomBarVisibility="Visible"
+                        CopyrightVisibility="Collapsed"
+                        LogoVisibility="Collapsed"/>
+            </phone:PivotItem>
+
+            <phone:PivotItem Header="mine">
+                <Grid>
+                    <TextBlock Name="txtNoMyDisasters" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}" Text="No disasters by you." Visibility="Collapsed"/>
+                    <ListBox Name="lstMyDisasters">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Background="Transparent" Tap="Disaster_Tap" Margin="0,0,0,10">
+                                    <TextBlock Text="{Binding Country}" Style="{StaticResource PhoneTextTitle2Style}"/>
+                                    <TextBlock Text="{Binding Description}" Style="{StaticResource PhoneTextTitle3Style}"/>
+                                    <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
+                                        <Image Source="/Assets/Resources/thumbsUp.png" Height="20"/>
+                                        <TextBlock Width="10"/>
+                                        <TextBlock Text="{Binding RatingPlus}" Foreground="Green"/>
+                                        <TextBlock Width="30"/>
+                                        <Image Source="/Assets/Resources/thumbsDown.png" Height="20"/>
+                                        <TextBlock Width="10"/>
+                                        <TextBlock Text="{Binding RatingMinus}" Foreground="Red"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </phone:PivotItem>
+        </phone:Pivot>
+    </Grid>
+
+</phone:PhoneApplicationPage>

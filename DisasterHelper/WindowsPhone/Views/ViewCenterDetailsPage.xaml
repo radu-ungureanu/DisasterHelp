@@ -1,0 +1,91 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="WindowsPhone.Views.ViewCenterDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Maps="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False"
+    shell:SystemTray.Opacity="0">
+    
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/add.png" IsEnabled="True" Text="add need" Click="AddNeed_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <!--Pivot Control-->
+        <phone:Pivot Title="helping hand" Name="pivot">
+            <phone:PivotItem Header="patients">
+                <Grid>
+                    <TextBlock Name="txtNoPacients" TextWrapping="Wrap" Text="No patients have been found." Visibility="Collapsed"/>
+                    <ListBox Name="lstPacients">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Background="Transparent" Tap="Pacient_Tap">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Source="/Assets/Resources/person_icon.png" Height="100" Width="100"/>
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Text="{Binding Name}"/>
+                                            <TextBlock Text="{Binding Description}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </phone:PivotItem>
+
+            <phone:PivotItem Header="needs">
+                <Grid>
+                    <TextBlock Name="txtNoNeeds" TextWrapping="Wrap" Text="This centers doesn't need anything." Visibility="Collapsed"/>
+                    <ListBox Name="lstNeeds">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Background="Transparent" Margin="0,0,0,10">
+                                    <TextBlock Text="{Binding Description}" Style="{StaticResource PhoneTextTitle2Style}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </phone:PivotItem>
+
+            <phone:PivotItem Header="map">
+                <Maps:Map
+                        CredentialsProvider="Ata6VjOFfYyG5vV9BHXJ45lDFLtbY9JLPHd45guVOSDbwdFstgQZKXHRDypQaMVA"
+                        x:Name="map"
+                        ZoomLevel="4"
+                        ZoomBarVisibility="Visible"
+                        CopyrightVisibility="Collapsed"
+                        LogoVisibility="Collapsed"/>
+            </phone:PivotItem>
+        </phone:Pivot>
+    </Grid>
+    
+</phone:PhoneApplicationPage>

@@ -1,0 +1,77 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="WindowsPhone.Views.AddNewCenterPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Maps="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False"
+    shell:SystemTray.Opacity="0">
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/check.png" IsEnabled="True" Text="save" Click="SaveButton_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <!--LayoutRoot contains the root grid where all other page content is placed-->
+    <Grid x:Name="LayoutRoot">
+        <phone:Panorama Title="add new center">
+
+            <!--Panorama item one-->
+            <phone:PanoramaItem Header="details">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Name:" Style="{StaticResource PhoneTextTitle2Style}"/>
+                            <TextBlock Name="errorName" Foreground="Red" Text="*" Visibility="Collapsed"/>
+                        </StackPanel>
+                        <TextBox Name="txtName"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="City:" Style="{StaticResource PhoneTextTitle2Style}"/>
+                            <TextBlock Name="errorCity" Foreground="Red" Text="*" Visibility="Collapsed"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <TextBox Grid.Row="1" Name="txtCity"/>
+                </Grid>
+            </phone:PanoramaItem>
+
+            <!--Panorama item two-->
+            <phone:PanoramaItem Header="map">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Please center the map to the desired location"/>
+                    <Maps:Map
+                        Grid.Row="1"
+                        CredentialsProvider="Ata6VjOFfYyG5vV9BHXJ45lDFLtbY9JLPHd45guVOSDbwdFstgQZKXHRDypQaMVA"
+                        x:Name="map"
+                        ZoomLevel="4"
+                        ZoomBarVisibility="Visible"
+                        CopyrightVisibility="Collapsed"
+                        LogoVisibility="Collapsed"/>
+                    <Border 
+                        Grid.Row="1"
+                        Height="70" Width="70"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            BorderBrush="Blue" BorderThickness="3"/>
+                </Grid>
+            </phone:PanoramaItem>
+        </phone:Panorama>
+    </Grid>
+
+</phone:PhoneApplicationPage>
